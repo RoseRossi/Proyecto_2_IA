@@ -142,7 +142,7 @@ def main(profundidad):
                             1,
                             self.profundidad - 1,
                             valorAV,
-                            self.valorAR
+                            self.valorAR,
                             [valorAV, self.valorAR],
                             [],
                         )
