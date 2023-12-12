@@ -48,12 +48,12 @@ def main(profundidad):
         [0, 7], [1, 7],
         [7, 7], [6, 7]
     ]
-    
+
     posiciones_fijas_monedas_3 = [
         [3, 3], [4, 3],
         [3, 4], [4, 4]
     ]
-    
+
     posiciones_yoshi = []
     while len(posiciones_yoshi) < 4:
         x = random.randint(0, 7)
@@ -87,7 +87,7 @@ def main(profundidad):
         valor = puntuacion["valor"]
         matriz[y][x] = valor
 
-    
+
     class Nodo:
         def __init__(
             self,
@@ -158,7 +158,7 @@ def main(profundidad):
                             1,
                             self.profundidad - 1,
                             valorAV,
-                            self.valorAR
+                            self.valorAR,
                             0,
                             [],
                         )
@@ -182,7 +182,7 @@ def main(profundidad):
                             -1,
                             self.profundidad - 1,
                             self.valorAV,
-                            valorAR
+                            valorAR,
                             [self.valorAV, valorAR],
                             [],
                         )
@@ -198,7 +198,7 @@ def main(profundidad):
                             -1,
                             self.profundidad - 1,
                             self.valorAV,
-                            valorAR
+                            valorAR,
                             0,
                             [],
                         )
@@ -389,14 +389,14 @@ def main(profundidad):
                             ),
                             1,
                         )
-                        
-                                           
+
+
                     if (columna, fila) in self.imagenes_en_celdas:
                         puntuacion = self.imagenes_en_celdas[(columna, fila)]
                         if not puntuacion["tomada"]:
                             imagen = puntuacion["imagen"]
                             ventana.blit(imagen, (columna * ANCHO_CELDA, fila * ALTO_CELDA))
-                    
+
                     # Dibujar yoshi verde
                     if (
                         fila == self.yoshi_verde_y
@@ -567,7 +567,7 @@ def main(profundidad):
                                                 hijo.yoshi_verde_y,
                                             ]
                                         )
-                    
+
                     if nodo.turno == -1:
                         hijosOrdenados = sorted(
                             nodo.valorHijos, key=lambda x: x[0], reverse=True
@@ -604,7 +604,7 @@ def main(profundidad):
                 if (x, y) in self.imagenes_en_celdas:
                     self.imagenes_en_celdas[(x, y)]["tomada"] = True
                 self.turno = -1
-                
+
                 if (self.yoshi_verde_x, self.yoshi_verde_y) in self.imagenes_en_celdas:
                     puntuacion = self.imagenes_en_celdas[(self.yoshi_verde_x, self.yoshi_verde_y)]
                     if not puntuacion["tomada"]:
@@ -613,7 +613,7 @@ def main(profundidad):
                         self.matriz[self.yoshi_verde_y][self.yoshi_verde_x] = 0
                         puntuacion["tomada"] = True
                         print(f"Puntuación tomada por el yoshi verde en: {self.yoshi_verde_x}, {self.yoshi_verde_y}")
-                        
+
             if self.turno == -1:
                 raiz = Nodo(
                     None,
@@ -630,7 +630,7 @@ def main(profundidad):
                     [],
                 )
                 minmax(raiz)
-                
+
                 def generar_grafo_1(nodo, grafo):
                     temp = (
                         "blanco x,y:\n"
@@ -664,7 +664,7 @@ def main(profundidad):
             print("Puntuación yoshi rojo: " + str(self.puntuacion_yoshi_rojo))
 
             tablero.verificarGanador()
-            
+
             if self.turno == 1:
                 # Turno del jugador
                 if tablero.tomar_puntuacion(x, y):
@@ -693,7 +693,7 @@ def main(profundidad):
                 self.yoshi_verde_y = raiz.valorVR[3]
                 if tablero.tomar_puntuacion(self.yoshi_verde_x, self.yoshi_verde_y):
                     print("La IA ha tomado una puntuación!")
-            
+
     # Inicializar Pygame
     pygame.init()
     ventana = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
